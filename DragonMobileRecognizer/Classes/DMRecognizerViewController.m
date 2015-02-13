@@ -42,7 +42,7 @@
  * and are provided solely as an illustrative example.
  * 
  */
-const unsigned char SpeechKitApplicationKey[] = {INSERT_YOUR_APPLICATION_KEY_HERE};
+const unsigned char SpeechKitApplicationKey[] = {0xf7, 0x6a, 0x3f, 0x9c, 0x99, 0x4d, 0x54, 0x6d, 0xe4, 0x26, 0x31, 0x16, 0x5e, 0x12, 0x04, 0xff, 0x38, 0x3f, 0xcb, 0x65, 0xd1, 0xc8, 0x4d, 0xbe, 0x3b, 0xc9, 0x0c, 0x82, 0x78, 0x82, 0x3e, 0x6f, 0xed, 0x7e, 0x0c, 0x86, 0xcb, 0x60, 0xf3, 0xaf, 0x86, 0x24, 0xc5, 0xe4, 0x36, 0xc9, 0xe3, 0x6e, 0x08, 0xae, 0xd3, 0xd9, 0x77, 0x20, 0x98, 0xb2, 0xe9, 0xa4, 0x34, 0x61, 0x27, 0x73, 0xd1, 0x14};
 
 @implementation DMRecognizerViewController
 @synthesize recordButton,searchBox,serverBox,portBox,alternativesDisplay,vuMeter,voiceSearch;
@@ -81,12 +81,12 @@ const unsigned char SpeechKitApplicationKey[] = {INSERT_YOUR_APPLICATION_KEY_HER
      * and are provided solely as an illustrative example.
      */ 
 
-    [SpeechKit setupWithID:INSERT_YOUR_APPLICATION_ID_HERE
-                      host:INSERT_YOUR_HOST_ADDRESS_HERE
-                      port:INSERT_YOUR_HOST_PORT_HERE
-                    useSSL:NO
-                  delegate:self];
-    
+	[SpeechKit setupWithID:@"NMDPTRIAL_putinhuylo20141227112358"
+					  host:@"sandbox.nmdp.nuancemobility.net"
+					  port:443
+					useSSL:NO
+				  delegate:self];
+	
 	// Set earcons to play
 	SKEarcon* earconStart	= [SKEarcon earconWithName:@"earcon_listening.wav"];
 	SKEarcon* earconStop	= [SKEarcon earconWithName:@"earcon_done_listening.wav"];
