@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 STRICT//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>SKRecognition class reference</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../css/screen.css" />
+  <meta name="generator" content="appledoc" />
+</head>
+<body>
+  <div id="mainContainer">
+    <h1>SKRecognition Class Reference</h1>
+    <table summary="Basic information" id="classInfo">
+      <tr class="alt">
+        <td><label id="classDeclaration">Inherits from</label></td>
+        <td>NSObject</td>
+      </tr>
+      <tr>
+        <td><label id="classDeclaration">Declared in</label></td>
+        <td>SKRecognition.h</td>
+      </tr>
+    </table>
+      <h2>Overview</h2>
+<p>The <a href="">SKRecognition</a> object contains recognition results returned from <a href="SKRecognizer.html">SKRecognizer</a>. </p>
+      <h2>Tasks</h2>
+      <h3>Properties</h3>
+      <ul class="methods">
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#results>results</a></code>
+            <span class="specialType">property</span>
+            <span class="tooltip">An NSArray containing NSStrings corresponding to what may have been said, in order of likelihood. </span>          </span>
+        </li>
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#scores>scores</a></code>
+            <span class="specialType">property</span>
+            <span class="tooltip">An NSArray of NSNumbers containing the confidence scores corresponding to each recognition result in the results array. </span>          </span>
+        </li>
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#suggestion>suggestion</a></code>
+            <span class="specialType">property</span>
+            <span class="tooltip">A server-generated suggestion suitable for presentation to the user. </span>          </span>
+        </li>
+      </ul>
+      <h3>Accessors</h3>
+      <ul class="methods">
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#firstResult>- firstResult</a></code>
+            <span class="tooltip">Returns the first NSString result in the results array. </span>          </span>
+        </li>
+      </ul>
+      <h2>Instance methods</h2>
+      <h3><a name="firstResult"></a>firstResult</h3>
+<p>Returns the first NSString result in the results array. </p>
+      <code class="methodDeclaration">- (NSString *)firstResult</code>
+      <h5>Return value</h5>
+<p>The first NSString result in the results array or nil.</p>
+      <h5>Discussion</h5>
+<p>
+This is a convenience method to simply return the best result in the list of results returned from the recognition server. It returns nil if the list of results is empty. </p>
+      <h5>Declared in</h5>
+      <code>SKRecognition.h</code>
+      <h2>Properties</h2>
+      <h3><a name="results"></a>results</h3>
+<p>An NSArray containing NSStrings corresponding to what may have been said, in order of likelihood. </p>
+      <code class="methodDeclaration">@property NSArray *results</code>
+      <h5>Discussion</h5>
+<p>The speech recognition server returns an array of recognition results by order of confidence. The first result in the array is what was most likely said. The remaining list of alternatives is ranked from most likely to least likely. </p>
+      <h5>Declared in</h5>
+      <code>SKRecognition.h</code>
+      <h3><a name="scores"></a>scores</h3>
+<p>An NSArray of NSNumbers containing the confidence scores corresponding to each recognition result in the results array. </p>
+      <code class="methodDeclaration">@property NSArray *scores</code>
+      <h5>Declared in</h5>
+      <code>SKRecognition.h</code>
+      <h3><a name="suggestion"></a>suggestion</h3>
+<p>A server-generated suggestion suitable for presentation to the user. </p>
+      <code class="methodDeclaration">@property NSString *suggestion</code>
+      <h5>Discussion</h5>
+<p>This is a suggestion to the user about how he or she can improve recognition performance and is based on the audio received. Examples include moving to a less noisy location if the environment is extremely noisy, or waiting a bit longer to start speaking if the beeginning of the recording seems truncated. Results are often still present and may still be of useful quality. </p>
+      <h5>Declared in</h5>
+      <code>SKRecognition.h</code>
+    <hr />
+    <p id="lastUpdated">      (Last updated: 2010-06-23)
+      <br />
+      Back to <a href="../index.html">index</a> / <a href="../hierarchy.html">hierarchy</a>.
+    </p>
+  </div>
+</body>
+</html>

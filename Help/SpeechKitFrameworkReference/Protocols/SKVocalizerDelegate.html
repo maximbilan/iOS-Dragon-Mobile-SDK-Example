@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 STRICT//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>SKVocalizerDelegate Protocol Reference</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../css/screen.css" />
+  <meta name="generator" content="appledoc" />
+</head>
+<body>
+  <div id="mainContainer">
+    <h1>SKVocalizerDelegate protocol reference</h1>
+    <table summary="Basic information" id="classInfo">
+      <tr class="alt">
+        <td><label id="classDeclaration">Declared in</label></td>
+        <td>SKVocalizer.h</td>
+      </tr>
+    </table>
+      <h2>Overview</h2>
+<p>The <a href="">SKVocalizerDelegate</a> protocol defines the methods sent by the <a href="../Classes/SKVocalizer.html">SKVocalizer</a> class during the speech synthesis process. These methods provide progress information regarding the speech process and are all optional. Since the vocalizer will automatically queue sequential speech reuqests, it is not even necessary to know when a speech request has finished. </p>
+      <h2>Tasks</h2>
+      <h3>Managing Text To Speech State</h3>
+      <ul class="methods">
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#vocalizer:willBeginSpeakingString:>- vocalizer:willBeginSpeakingString:</a></code>
+            <span class="tooltip">Sent when the vocalizer starts speaking each string. </span>          </span>
+        </li>
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#vocalizer:didFinishSpeakingString:withError:>- vocalizer:didFinishSpeakingString:withError:</a></code>
+            <span class="tooltip">Sent when the vocalizer finishes speaking or ends with an error. </span>          </span>
+        </li>
+      </ul>
+      <h2>Instance methods</h2>
+      <h3><a name="vocalizer:willBeginSpeakingString:"></a>vocalizer:willBeginSpeakingString:</h3>
+<p>Sent when the vocalizer starts speaking each string. </p>
+      <code class="methodDeclaration">- (void)vocalizer:(SKVocalizer *)        <span class="parameter">vocalizer</span>
+ willBeginSpeakingString:(NSString *)        <span class="parameter">text</span>
+</code>
+      <h5>Parameters</h5>
+      <dl class="parameterList">
+        <dt>vocalizer</dt>
+        <dd><p>The vocalizer sending the message. </p>
+</dd>
+        <dt>text</dt>
+        <dd><p>The text sent to the speakString: or speakMarkupString: methods.</p>
+</dd>
+      </dl>
+      <h5>Discussion</h5>
+<p>
+This message is sent to the delegate at most one time for each speech request. In the case that there is valid speech to play, this method will be called when the audio begins playing. If there is no valid audio for the string, or there is an error, this method will not be called. </p>
+      <h5>Declared in</h5>
+      <code>SKVocalizer.h</code>
+      <h3><a name="vocalizer:didFinishSpeakingString:withError:"></a>vocalizer:didFinishSpeakingString:withError:</h3>
+<p>Sent when the vocalizer finishes speaking or ends with an error. </p>
+      <code class="methodDeclaration">- (void)vocalizer:(SKVocalizer *)        <span class="parameter">vocalizer</span>
+ didFinishSpeakingString:(NSString *)        <span class="parameter">text</span>
+ withError:(NSError *)        <span class="parameter">error</span>
+</code>
+      <h5>Parameters</h5>
+      <dl class="parameterList">
+        <dt>vocalizer</dt>
+        <dd><p>The vocalizer sending the message. </p>
+</dd>
+        <dt>text</dt>
+        <dd><p>The text sent to one of the speakString: methods. </p>
+</dd>
+        <dt>error</dt>
+        <dd><p>An error or nil in the case of no error.</p>
+</dd>
+      </dl>
+      <h5>Discussion</h5>
+<p>
+This message will always be sent one time for each speech request sent to the speakString: methods. In the case that there are no errors, this method will be called when the speech playback finishes with error set to nil. If there is an error at any stage of the speech request, this method will be called immediately with error set to indicate the failure. </p>
+      <h5>Declared in</h5>
+      <code>SKVocalizer.h</code>
+    <hr />
+    <p id="lastUpdated">      (Last updated: 2010-06-23)
+      <br />
+      Back to <a href="../index.html">index</a> / <a href="../hierarchy.html">hierarchy</a>.
+    </p>
+  </div>
+</body>
+</html>

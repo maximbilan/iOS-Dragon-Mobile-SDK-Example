@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 STRICT//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>SpeechKit Class Reference</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../css/screen.css" />
+  <meta name="generator" content="appledoc" />
+</head>
+<body>
+  <div id="mainContainer">
+    <h1>SpeechKit class reference</h1>
+    <table summary="Basic information" id="classInfo">
+      <tr class="alt">
+        <td><label id="classDeclaration">Inherits from</label></td>
+        <td>NSObject</td>
+      </tr>
+      <tr>
+        <td><label id="classDeclaration">Declared in</label></td>
+        <td>SpeechKit.h</td>
+      </tr>
+    </table>
+      <h2>Overview</h2>
+<p>This is the <a href="">SpeechKit</a> core class providing setup and utility methods. </p>
+<p><a href="">SpeechKit</a> does not provide any instance methods and is not designed to be initialized. Instead, this class provides methods to assist in initializing the <a href="">SpeechKit</a> core networking, recognition and audio sytem components. </p>
+      <h2>Tasks</h2>
+      <h3>Managing the Speech Server</h3>
+      <ul class="methods">
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#setupWithID:host:port:useSSL:delegate:>+ setupWithID:host:port:useSSL:delegate:</a></code>
+            <span class="tooltip">This method configures the SpeechKit subsystems. </span>
+          </span>
+        </li>
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#sessionID>+ sessionID</a></code>
+            <span class="tooltip">This method provides the most recent session ID. </span>
+          </span>
+        </li>
+          <li>
+              <span class="tooltipRegion">
+                  <code><a href=#destroy>+ destroy</a></code>
+                  <span class="tooltip">This method tears down the SpeechKit subsystems.</span>
+              </span>
+          </li>
+      </ul>
+      <h2>Class methods</h2>
+      <h3><a name="setupWithID:host:port:useSSL:delegate:"></a>setupWithID:host:port:useSSL:delegate</h3>
+      <p>This method configures the <a href="">SpeechKit</a> subsystems. </p>
+      <code class="methodDeclaration">
+          + (void)setupWithID:(NSString *)
+          <span class="parameter">ID</span>
+          host:(NSString *)
+          <span class="parameter">host</span>
+          port:(long)
+          <span class="parameter">port</span>
+          useSSL:(BOOL)
+          <span class="parameter">useSSL</span>
+          delegate:(id <SpeechKitDelegate>)
+          <span class="parameter">delegate</span>
+      </code>
+      <h5>Parameters</h5>
+      <dl class="parameterList">
+        <dt>ID</dt>
+        <dd><p>Application identification </p></dd>
+        <dt>host</dt>
+        <dd><p>The Nuance speech server hostname or IP address </p></dd>
+        <dt>port</dt>
+        <dd><p>The Nuance speech server port</p></dd>
+        <dt>useSSL</dt>
+        <dd><p>Whether or not SpeechKit should use SSL to communicate with the Nuance speech server</p></dd>
+        <dt>delegate</dt>
+        <dd><p>The receiver for the setup message responses.  If the user wishes to destroy and re-connect to the SpeechKit servers, the delegate must implement the SpeechKitDelegate protocol and observe the destroyed method.</p></dd>
+      </dl>
+      <h5>Discussion</h5>
+      <p>This method starts the necessary underlying components of the <a href="">SpeechKit</a> framework. Ensure that the <a href="#SpeechKitApplicationKey">SpeechKitApplicationKey</a> variable contains your application key prior to calling this method. On calling this method, a connection is established with the speech server and authorization details are exchanged. This provides the necessary setup to perform recognitions and vocalizations. In addition, having the established connection results in improved response times for speech requests made soon after as the recorded audio can be sent without waiting for a connection. Once the system has been initialized with this function, future calls to <a href="../Classes/SpeechKit.html#setupWithID:host:port:useSSL:delegate:">setupWithID</a> will be ignored.  If you wish to connect to a different server or call this function again for any reason, you must call <a href=#destroy>[SpeechKit destroy]</a> and wait for the destroyed delegate method to be called.</p>
+      <h5>Declared in</h5>
+      <code>SpeechKit.h</code>
+      <h3><a name="sessionID"></a>sessionID</h3>
+      <p>This method provides the most recent session ID. </p>
+      <code class="methodDeclaration">+ (NSString *)sessionID</code>
+      <h5>Return value</h5>
+      <p>Session ID as a string or nil if no connection has been established yet.</p>
+      <h5>Discussion</h5>
+      <p>If there is an active connection to the server, this method provides the session ID of that connection. If no connection to the server currently exists, this method provides the session ID of the previous connection. If no connection to the server has yet been made, this method returns nil. </p>
+      <h5>Declared in</h5>
+      <code>SpeechKit.h</code>
+      <h3><a name="destroy"></a>destroy</h3>
+      <p>This method tears down the SpeechKit subsystems.</p>
+      <code class="methodDeclaration">+ (void)destroy</code>
+      <h5>Discussion</h5>
+      <p>This method frees the resources of the SpeechKit framework and tears down any existing connections to the server.  It is usually not necessary to call this function, however, if you need to connect to a different server or port, it is necessary to call this function before calling <a href="../Classes/SpeechKit.html#setupWithID:host:port:useSSL:delegate:">setupWithID</a> again. You must wait for the destroyed delegate method of the SpeechKitDelegate protocol to be called before calling <a href="../Classes/SpeechKit.html#setupWithID:host:port:useSSL:delegate:">setupWithID</a> again.  Note also you will need to call setEarcon again to set up all your earcons after using this method. This function should NOT be called during an active recording or vocalization - you must first cancel the active transaction.  Calling it while the system is not idle may cause unpredictable results.</p>
+      <h5>Declared in</h5>
+      <code>SpeechKit.h</code>
+      <h2>Constants</h2>
+      <h3><a name="SpeechKitApplicationKey"></a>SpeechKitApplicationKey</h3>
+      <p>This global variable defines the SpeechKit application key used for server authentication.</p>
+    <hr />
+    <p id="lastUpdated">      (Last updated: 2011-09-19)
+      <br />
+      Back to <a href="../index.html">index</a> / <a href="../hierarchy.html">hierarchy</a>.
+    </p>
+  </div>
+</body>
+</html>

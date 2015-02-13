@@ -1,0 +1,67 @@
+Connecting to a Speech Server
+=============================
+The Speech Kit framework is a network service and requires some basic setup before you can use either the recognition or text-to-speech classes.
+
+This setup performs two primary operations:
+
+	* First, it identifies and authorizes your application.
+
+	* Second, it establishes a connection to the speech server, allowing for fast initial speech requests and thus enhancing the user experience.
+
+	  .. note::
+
+		This network connection requires authorization credentials and server details set by the developer.
+		The necessary credentials are providedthrough the Dragon Mobile SDK portal at http://dragonmobile.nuancemobiledeveloper.com.
+
+Speech Kit Setup
+----------------
+The application key ``SpeechKitApplicationKey`` is required by the framework and must be set by the developer. 
+This key is effectively your application's password for the speech server and should be kept secret to prevent misuse.
+
+Your unique credentials, provided through the developer portal, include the necessary line of code to set this value.
+Thus, this process is as simple as copying and pasting the line into your source file. 
+You must set this key before you initialize the Speech Kit system.
+For example, you configure the application key as follows:
+
+.. code-block:: objective-c
+
+	const unsigned char[] SpeechKitApplicationKey = {0x12, 0x34, ..., 0x89};
+
+The setup method, ``setupWithID:host:port:useSSL:delegate:``, takes five parameters:
+
+	* An application identifier
+	* A server address
+	* A port
+	* A flag indicating whether SSL should be used to encrypt the data
+	* An optional delegate
+
+The ``ID`` parameter identifies your application and is used in conjunction with your key to provide authorization to the speech server.
+
+The ``host``, ``port`` and SSL parameters define the speech server, which may differ from application to application.
+Therefore, you should always use the values provided with your authentication parameters.
+
+Providing a delegate is optional and is only necessary if you wish to observe the ``destroyed`` delegate method, which is advanced usage and really only necessary if you choose to connect to a different server.
+
+The framework is configured in the following example:
+
+.. code-block:: objective-c
+
+	[SpeechKit setupWithID:@"NMDPTRIAL_Acme20100604154233_aaea77bc5b900dc4005faae89f60a029214d450b" 
+	                  host:@"10.0.0.100" 
+	                  port:443
+	                  useSSL:NO
+	                  delegate:nil];
+
+.. note::
+
+	The ``setupWithID:host:port:useSSL:delegate:`` method is a class method and does not return an instance of any type. 
+	This method is meant to be called one time per application execution to configure the underlying network connection. 
+	This is an asynchronous method that begins a background task that establishes the connection and performs authorization. 
+	This method does not indicate failure.
+	Instead, the success or failure of this setup is known when the SKRecognizer and SKVocalizer classes are used.
+	
+At this point the speech server is fully configured, and the framework begins to establish a connection.  
+This connection will remain open for some period of time, ensuring that subsequent speech requests are served quickly as long as the user is actively making use of speech. 
+If the connection times out and closes, it will be re-opened automatically on the next speech request.  
+
+The application is now configured and ready to recognize and synthesize speech.

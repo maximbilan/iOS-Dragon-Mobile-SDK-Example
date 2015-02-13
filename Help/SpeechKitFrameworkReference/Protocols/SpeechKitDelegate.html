@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 STRICT//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>SpeechKitDelegate Protocol Reference</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../css/screen.css" />
+  <meta name="generator" content="appledoc" />
+</head>
+<body>
+  <div id="mainContainer">
+    <h1>SpeechKitDelegate protocol reference</h1>
+    <table summary="Basic information" id="classInfo">
+      <tr class="alt">
+        <td><label id="classDeclaration">Declared in</label></td>
+        <td>SpeechKit.h</td>
+      </tr>
+    </table>
+      <h2>Overview</h2>
+      <p>The <a href="">SpeechKitDelegate</a> protocol defines the messages sent to a delegate object registered as part of the call to <a href="../Classes/SpeechKit.html#setupWithID:host:port:useSSL:delegate:">setupWithID.</a></p>
+      <h2>Tasks</h2>
+      <h3>Observing state</h3>
+      <ul class="methods">
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#destroyed>- destroyed</a></code>
+            <span class="tooltip">Sent when the destruction process is complete. </span>
+          </span>
+        </li>
+      </ul>
+      <h2>Instance methods</h2>
+      <h3><a name="destroyed"></a>destroyed</h3>
+      <p>Sent when the destruction process is complete. </p>
+      <code class="methodDeclaration">- (void) destroyed</code>
+      <h5>Discussion</h5>
+      <p>This allows the delegate to monitor the destruction process. Note that subsequent calls to destroy and <a href="../Classes/SpeechKit.html#setupWithID:host:port:useSSL:delegate:">setupWithID</a> will be ignored until this delegate method is called, so if you need to call <a href="../Classes/SpeechKit.html#setupWithID:host:port:useSSL:delegate:">setupWithID</a> again to connect to a different server, you must wait for this.</p>
+      <h5>Declared in</h5>
+      <code>SpeechKit.h</code>
+    <hr />
+    <p id="lastUpdated">      (Last updated: 2011-09-19)
+      <br />
+      Back to <a href="../index.html">index</a> / <a href="../hierarchy.html">hierarchy</a>.
+    </p>
+  </div>
+</body>
+</html>

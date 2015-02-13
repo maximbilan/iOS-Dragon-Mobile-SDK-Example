@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 STRICT//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>SKRecognizerDelegate Protocol Reference</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../css/screen.css" />
+  <meta name="generator" content="appledoc" />
+</head>
+<body>
+  <div id="mainContainer">
+    <h1>SKRecognizerDelegate protocol reference</h1>
+    <table summary="Basic information" id="classInfo">
+      <tr class="alt">
+        <td><label id="classDeclaration">Declared in</label></td>
+        <td>SKRecognizer.h</td>
+      </tr>
+    </table>
+      <h2>Overview</h2>
+<p>The <a href="">SKRecognizerDelegate</a> protocol defines the messages sent to a delegate of the <a href="../Classes/SKRecognizer.html">SKRecognizer</a> class. These delegate methods indicate the flow of the recognition process. The receiver will be notified when the recording has ended and when the recognition process is finished. </p>
+      <h2>Tasks</h2>
+      <h3>Managing Recognition State</h3>
+      <ul class="methods">
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#recognizerDidBeginRecording:>- recognizerDidBeginRecording:</a></code>
+            <span class="tooltip">Sent when the recognizer starts recording audio. </span>          </span>
+        </li>
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#recognizerDidFinishRecording:>- recognizerDidFinishRecording:</a></code>
+            <span class="tooltip">Sent when the recognizer stops recording audio. </span>          </span>
+        </li>
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#recognizer:didFinishWithResults:>- recognizer:didFinishWithResults:</a></code>
+            <span class="tooltip">Sent when the recognition process completes successfully. </span>          </span>
+        </li>
+        <li>
+          <span class="tooltipRegion">
+            <code><a href=#recognizer:didFinishWithError:suggestion:>- recognizer:didFinishWithError:suggestion:</a></code>
+            <span class="tooltip">Sent when the recognition process completes with an error. </span>          </span>
+        </li>
+      </ul>
+      <h2>Instance methods</h2>
+      <h3><a name="recognizerDidBeginRecording:"></a>recognizerDidBeginRecording:</h3>
+<p>Sent when the recognizer starts recording audio. </p>
+      <code class="methodDeclaration">- (void)recognizerDidBeginRecording:(SKRecognizer *)        <span class="parameter">recognizer</span>
+</code>
+      <h5>Parameters</h5>
+      <dl class="parameterList">
+        <dt>recognizer</dt>
+        <dd><p>The recognizer sending the message. </p>
+</dd>
+      </dl>
+      <h5>Declared in</h5>
+      <code>SKRecognizer.h</code>
+      <h3><a name="recognizerDidFinishRecording:"></a>recognizerDidFinishRecording:</h3>
+<p>Sent when the recognizer stops recording audio. </p>
+      <code class="methodDeclaration">- (void)recognizerDidFinishRecording:(SKRecognizer *)        <span class="parameter">recognizer</span>
+</code>
+      <h5>Parameters</h5>
+      <dl class="parameterList">
+        <dt>recognizer</dt>
+        <dd><p>The recognizer sending the message. </p>
+</dd>
+      </dl>
+      <h5>Declared in</h5>
+      <code>SKRecognizer.h</code>
+      <h3><a name="recognizer:didFinishWithResults:"></a>recognizer:didFinishWithResults:</h3>
+<p>Sent when the recognition process completes successfully. </p>
+      <code class="methodDeclaration">- (void)recognizer:(SKRecognizer *)        <span class="parameter">recognizer</span>
+ didFinishWithResults:(SKRecognition *)        <span class="parameter">results</span>
+</code>
+      <h5>Parameters</h5>
+      <dl class="parameterList">
+        <dt>recognizer</dt>
+        <dd><p>The recognizer sending the message. </p>
+</dd>
+        <dt>results</dt>
+        <dd><p>The <a href="../Classes/SKRecognition.html">SKRecognition</a> object containing the recognition results.</p>
+</dd>
+      </dl>
+      <h5>Discussion</h5>
+<p>
+This method is only called when the recognition process completes successfully. The results object contains an array of possible results, with the best result at index 0 or an empty array if no error occurred but no speech was detected. </p>
+      <h5>Declared in</h5>
+      <code>SKRecognizer.h</code>
+      <h3><a name="recognizer:didFinishWithError:suggestion:"></a>recognizer:didFinishWithError:suggestion:</h3>
+<p>Sent when the recognition process completes with an error. </p>
+      <code class="methodDeclaration">- (void)recognizer:(SKRecognizer *)        <span class="parameter">recognizer</span>
+ didFinishWithError:(NSError *)        <span class="parameter">error</span>
+ suggestion:(NSString *)        <span class="parameter">suggestion</span>
+</code>
+      <h5>Parameters</h5>
+      <dl class="parameterList">
+        <dt>recognizer</dt>
+        <dd><p>The recognizer sending the message. </p>
+</dd>
+        <dt>error</dt>
+        <dd><p>The recognition error. Possible numeric values for the SKSpeechErrorDomain are listed in SpeechKitError.h and a text description is available via the localizedDescription method. </p>
+</dd>
+        <dt>suggestion</dt>
+        <dd><p>This is a suggestion to the user about how he or she can improve recognition performance and is based on the audio received. Examples include moving to a less noisy location if the environment is extremely noisy, or waiting a bit longer to start speaking if the beeginning of the recording seems truncated. Results are often still present and may still be of useful quality.</p>
+</dd>
+      </dl>
+      <h5>Discussion</h5>
+<p>
+This method is called when the recognition process results in an error due to any number of circumstances. The audio system may fail to initialize, the server connection may be disrupted or a parameter specified during initialization, such as language or authentication information was invalid. </p>
+      <h5>Declared in</h5>
+      <code>SKRecognizer.h</code>
+    <hr />
+    <p id="lastUpdated">      (Last updated: 2010-06-23)
+      <br />
+      Back to <a href="../index.html">index</a> / <a href="../hierarchy.html">hierarchy</a>.
+    </p>
+  </div>
+</body>
+</html>

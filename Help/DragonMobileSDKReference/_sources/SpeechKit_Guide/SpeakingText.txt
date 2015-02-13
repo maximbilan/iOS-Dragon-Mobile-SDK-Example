@@ -1,0 +1,85 @@
+Converting Text to Speech
+=========================
+The ``SKVocalizer`` class provides a network text-to-speech interface for developers.
+
+.. figure:: text_to_speech_flow.png
+
+	Text-to-Speech Process
+
+Initiating Text-To-Speech
+-------------------------
+1. Before you use speech synthesis, ensure that you have setup the core Speech Kit framework with the ``setupWithID:host:port:useSSL:delegate:`` method.  
+
+2. Then create and initialize a ``SKVocalizer`` object to perform text-to-speech conversion:
+
+   .. code-block:: objective-c
+
+	vocalizer = [[SKVocalizer alloc] initWithLanguage:@"en_US"
+	                                         delegate:self];
+	
+3.
+	a. The ``initWithLanguage:delegate:`` method initializes a text-to-speech synthesizer with a default language.
+
+		* The ``language`` parameter is a ``NSString *`` that defines the spoken language in the format of the ISO 639 language code, followed by an underscore "_", followed by the ISO 3166-1 country code.
+		  For example, the English language as spoken in the United States is `en_US`. 
+		  Each supported language has one or more uniquely defined voices, either male or female. 
+
+		  .. note::
+
+			An up-to-date list of supported languages for text-to-speech is available at http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=faq.
+			The list of supported languages will be updated when new language support is added.
+			The new languages will not necessarily require updating an existing Dragon Mobile SDK.
+	
+		* The ``delegate`` parameter defines the object to receive status and error messages from the speech synthesizer.
+
+	b. The ``initWithLanguage:delegate:`` method uses a default voice chosen by Nuance.
+	   To select a different voice, use the ``initWithVoice:delegate:`` method instead.
+	
+		* The ``voice`` parameter is an ``NSString *`` that defines the voice model. For example, the female US English voice is `Samantha`.
+		
+		  .. note::
+		
+			The up-to-date list of supported voices is provided with the supported languages at http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=faq.
+
+5. To begin converting text to speech, you must use either the ``speakString:`` or ``speakMarkupString:`` method.
+   These methods send the requested string to the speech server and start streaming and playing audio on the device.
+
+   .. code-block:: objective-c
+
+	[vocalizer speakString:@"Hello world."]
+
+   .. note::
+
+	The ``speakMarkupString`` method is used in exactly the same manner as ``speakString`` except that it takes an ``NSString *`` filled with SSML, a markup language tailored for use in describing synthesized speech.
+	An advanced discussion of SSML is beyond the scope of this document, however you can find more information from the W3C at http://www.w3.org/TR/speech-synthesis/.
+
+As speech synthesis is a network-based service, these methods are all asynchronous, and in general an error condition is not immediately reported.
+Any errors are reported as messages to the delegate.
+
+Managing Text-To-Speech Feedback
+--------------------------------
+The synthesized speech will not immediately start playback.
+Rather there will be a brief delay as the request is sent to the speech server and speech is streamed back.
+For UI coordination, to indicate when audio playback begins, the optional delegate method ``vocalizer:willBeginSpeakingString:`` is provided.
+
+.. code-block:: objective-c
+
+	- (void)vocalizer:(SKVocalizer *)vocalizer willBeginSpeakingString:(NSString *)text {
+	    // Update UI to indicate that text is being spoken
+	}
+
+The ``NSString *`` in the message is a reference to the original string passed to one of the ``speakString`` or ``speakMarkupString`` methods and may be used track sequences of playback when sequential text-to-speech requests are made.
+
+On completion of the speech playback, the ``vocalizer:didFinishSpeakingString:withError`` message is sent.  
+This message is always sent on successful completion and on error.  
+In the success case, ``error`` is ``nil``.
+
+.. code-block:: objective-c
+
+	- (void)vocalizer:(SKVocalizer *)vocalizer didFinishSpeakingString:(NSString *)text withError:(NSError *)error {
+	    if (error) {
+	        // Present error dialog to user
+	    } else {
+	        // Update UI to indicate speech is complete
+	    }
+	}

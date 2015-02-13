@@ -1,0 +1,115 @@
+Recognizing Speech
+==================
+The recognizer allows users to speak instead of type in locations where text entry would generally be required.  
+The speech recognizer returns a list of text results.
+It is not attached to any UI object in any way, so the presentation of the best result and selection of alternative results is left up to the UI of application.
+
+.. figure:: recognition_flow.png
+
+	Speech Recognition Process
+
+Initiating a Recognition
+------------------------
+1. Before you use speech recognition, ensure that you have set up the core Speech Kit framework with the ``setupWithID:host:port:useSSL:delegate:`` method.
+
+2. Then create and initialize a ``SKRecognizer`` object:
+
+   .. code-block:: objective-c
+
+	recognizer = [[SKRecognizer alloc] initWithType:SKSearchRecognizerType
+	                                      detection:SKShortEndOfSpeechDetection
+	                                       language:@"en_US" 
+	                                       delegate:self];
+
+3. The ``initWithType:detection:language:delegate`` method initializes a recognizer and starts the speech recognition process.
+
+	* The ``type`` parameter is an ``NSString *``, generally one of the recognition type constants defined in the Speech Kit framework and available in the header `SKRecognizer.h`.
+	  Nuance may provide you with a different value for your unique recognition needs, in which case you will enter the raw ``NSString``.
+
+	* The ``detection`` parameter determines the end-of-speech detection model and must be one of the ``SKEndOfSpeechDetection`` types.
+
+	* The ``language`` parameter defines the speech language as a string in the format of the ISO 639 language code, followed by an underscore "_", followed by the ISO 3166-1 country code.
+
+	  .. note::
+		
+		For example, the English language as spoken in the United States is `en_US`. An up-to-date list of supported languages for recognition is available on the FAQ at http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=faq.
+
+4. The delegate receives the recognition results or error messages, as described below.
+
+Receiving Recognition Results
+-----------------------------
+To retrieve the recognition results, implement the ``recognizer:didFinishWithResults:`` delegate method.
+	
+.. code-block:: objective-c
+
+	- (void)recognizer:(SKRecognizer *)recognizer didFinishWithResults:(SKRecognition *)results {
+	    [recognizer autorelease];
+	    // Perform some action on the results
+	}
+
+This delegate method will be called only on successful completion, and the results list will have zero or more results.
+The first result can always be retrieved with the ``firstResult`` method.
+Even in the absence of an error, there may be a suggestion, present in the recognition results object, from the speech server.
+This suggestion should be presented to the user.
+
+Handling Errors
+---------------
+To be informed of any recognition errors, implement the ``recognizer:didFinishWithError:suggestion:`` delegate method.
+In the case of errors, only this method will be called; conversely, on success this method will not be called.
+In addition to the error, a suggestion, as described in the previous section, may or may not be present.
+
+.. code-block:: objective-c
+
+	- (void)recognizer:(SKRecognizer *)recognizer didFinishWithError:(NSError *)error suggestion:(NSString *)suggestion {
+	    [recognizer autorelease];
+	    // Inform the user of the error and suggestion
+	}
+
+Managing Recording State Changes
+--------------------------------
+Optionally, to be informed when the recognizer starts or stops recording audio, implement the ``recognizerDidBeginRecording:`` and ``recognizerDidFinishRecording:`` delegate methods.
+There may be a delay between initialization of the recognizer and the actual start of recording, so the ``recognizerDidBeginRecording:`` message can be used to signal to the user when the system is listening.
+
+.. code-block:: objective-c
+
+	- (void)recognizerDidBeginRecording:(SKRecognizer *)recognizer {
+	    // Update the UI to indicate the system is now recording
+	}
+
+The ``recognizerDidFinishRecording:`` message is sent before the speech server has finished receiving and processing the audio, and therefore before the result is available.
+
+.. code-block:: objective-c
+
+	- (void)recognizerDidFinishRecording:(SKRecognizer *)recognizer {
+	    // Update the UI to indicate that recording has stopped and the speech is still being processed
+	}
+
+This message is sent both with and without end-of-speech detection models in place.
+The message is sent regardless, whether recording was stopped due to calling the ``stopRecording`` method or due to detecting end-of-speech.
+
+Setting Earcons (Audio Cues)
+----------------------------
+Optionally, to play audio cues before and after recording and after cancelling a recognition session, you can use earcons. You need to create an ``SKEarcon`` object and set it using the   ``setEarcon:forType:`` method of the Speech Kit framework. the following example shows how to set earcons in the recognizer sample app. 
+
+.. code-block:: objective-c
+
+	- (void)setEarcons {
+		// Set earcons to play
+		SKEarcon* earconStart	= [SKEarcon earconWithName:@"earcon_listening.wav"];
+		SKEarcon* earconStop	= [SKEarcon earconWithName:@"earcon_done_listening.wav"];
+		SKEarcon* earconCancel	= [SKEarcon earconWithName:@"earcon_cancel.wav"];
+		
+		[SpeechKit setEarcon:earconStart forType:SKStartRecordingEarconType];
+		[SpeechKit setEarcon:earconStop forType:SKStopRecordingEarconType];
+		[SpeechKit setEarcon:earconCancel forType:SKCancelRecordingEarconType];
+	}
+
+When the code block above is called, after you have set up the core Speech Kit framework using  the ``setupWithID:host:port:useSSL:delegate:`` method, it plays the ``earcon_listening.wav`` audio file before recording starts and plays ``earcon_done_listening.wav`` audio file when recording is completed. In the case of cancellation, the ``earcon_cancel.wav" file is played to the user. The ``earconWithName:`` method works only with audio files that are supported by the device.
+
+Power Level Feedback
+--------------------
+In some scenarios, especially for longer dictations, it is useful to provide a user with visual feedback of the volume of their speech.
+The recognizer interface supports this feature by use of the property ``audioLevel``, which returns the relative power level of the recorded audio in decibels.
+The range of this value is a ``float`` between 0.0 and -90.0 dB where 0.0 is the highest power level and -90.0 is the lowest level.
+This property should be accessed during recordings, specifically in the time between receiving the delegate messages ``recognizerDidBeginRecording:`` and ``recognizerDidFinishRecording:``.
+Generally, you should use a timer method such as ``performSelector:withObject:afterDelay:`` to read the power level regularly.

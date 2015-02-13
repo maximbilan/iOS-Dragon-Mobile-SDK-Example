@@ -1,0 +1,51 @@
+Sample Text-To-Speech App
+=========================
+Included as part of the Dragon Mobile SDK is a sample Xcode project :file:`DragonMobileVocalizer`, which presents a basic, complete demo of the network-based text-to-speech synthesizer.
+
+Before you use this sample application, you must replace the placeholder application ID and key with values provided by Nuance for your developer account.
+You can obtain your ID and key from the Nuance Mobile Developer portal located at http://dragonmobile.nuancemobiledeveloper.com/.
+
+	1. Open the file :file:`Classes/DMVocalizerViewController`.
+	
+	2. Replace the ``SpeechKitApplicationKey[]`` value with your key.
+	
+	3. In the ``setupWithID:host:port:useSSL:delegate:`` method, replace the ``ID`` parameter  with your ID.
+	
+	4. You should also verify that the host and port provided to that method match the host and port provided in the portal.
+	
+	5. You can now run the application: connect your device and select :guilabel:`Build and Run`.
+
+Main Text-to-Speech View
+------------------------
+When the sample application launches, the main text-to-speech view is displayed.
+
+.. figure:: images/vocalizer.png
+
+	Main Text-to-Speech View
+
+This view has three primary elements:
+
+	* Two elements are under the Text heading: a text entry field for defining the text to be spoken and a control button to start and stop the speech synthesis process.
+	
+	* Under the Read Out heading is a read-only text field, which displays the text being spoken.
+
+To start the text-to-speech conversion, enter the text of your choice and select the Read It button.
+When playback begins, the text appears in the Read Out field.
+
+Text-to-Speech Logic
+--------------------
+This sample application is a simple introduction to using the network-based text-to-speech APIs in the Speech Kit framework.
+To maintain simplicity, the application was designed using Interface Builder.
+All of the text-to-speech logic is contained within the ``DMVocalizerViewController`` implementation.
+
+On execution, when the application finishes loading the main view from the nib file, the ``viewDidLoad`` method is called.
+This method is used to configure the Speech Kit framework on application launch by calling the ``setupWithID:host:port:useSSL:delegate:`` method.
+Note that the key has already been defined as a global value.
+
+When you press the Read It button, a new ``SKVocalizer`` is created with the ``initWithLanguage:delegate:`` method, and speech playback begins via the ``speakString:`` method.
+The button label changes to Stop, allowing the speech synthesis to be canceled.
+
+When playback finishes successfully, the delegate method ``vocalizer:didFinishSpeakingString:error`` is called, and the button changes back to Read It.
+This allows another text-to-speech request to be made.
+
+If an error occurs, the error parameter is a valid ``NSError`` with a localized message.

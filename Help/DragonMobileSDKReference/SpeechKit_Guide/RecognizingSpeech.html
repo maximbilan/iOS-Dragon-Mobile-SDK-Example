@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Recognizing Speech &mdash; Dragon Mobile SDK Reference</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.4.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Dragon Mobile SDK Reference" href="../index.html" />
+    <link rel="up" title="Speech Kit Framework Guide" href="Introduction.html" />
+    <link rel="next" title="Converting Text to Speech" href="SpeakingText.html" />
+    <link rel="prev" title="Connecting to a Speech Server" href="ServerConnection.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../Introduction.html">Dragon Mobile SDK Reference</a></div>
+        <div class="rel">
+          <a href="ServerConnection.html" title="Connecting to a Speech Server"
+             accesskey="P">previous</a> |
+          <a href="SpeakingText.html" title="Converting Text to Speech"
+             accesskey="N">next</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="recognizing-speech">
+<h1>Recognizing Speech<a class="headerlink" href="#recognizing-speech" title="Permalink to this headline">¶</a></h1>
+<p>The recognizer allows users to speak instead of type in locations where text entry would generally be required.
+The speech recognizer returns a list of text results.
+It is not attached to any UI object in any way, so the presentation of the best result and selection of alternative results is left up to the UI of application.</p>
+<div class="figure">
+<img alt="../_images/recognition_flow.png" src="../_images/recognition_flow.png" />
+<p class="caption">Speech Recognition Process</p>
+</div>
+<div class="section" id="initiating-a-recognition">
+<h2>Initiating a Recognition<a class="headerlink" href="#initiating-a-recognition" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Before you use speech recognition, ensure that you have set up the core Speech Kit framework with the <tt class="docutils literal"><span class="pre">setupWithID:host:port:useSSL:delegate:</span></tt> method.</p>
+</li>
+<li><p class="first">Then create and initialize a <tt class="docutils literal"><span class="pre">SKRecognizer</span></tt> object:</p>
+<div class="highlight-objective-c"><div class="highlight"><pre><span class="n">recognizer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">SKRecognizer</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithType</span><span class="o">:</span><span class="n">SKSearchRecognizerType</span>
+                                      <span class="nl">detection:</span><span class="n">SKShortEndOfSpeechDetection</span>
+                                       <span class="nl">language:</span><span class="s">@&quot;en_US&quot;</span>
+                                       <span class="nl">delegate:</span><span class="n">self</span><span class="p">];</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">initWithType:detection:language:delegate</span></tt> method initializes a recognizer and starts the speech recognition process.</p>
+<blockquote>
+<div><ul>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">type</span></tt> parameter is an <tt class="docutils literal"><span class="pre">NSString</span> <span class="pre">*</span></tt>, generally one of the recognition type constants defined in the Speech Kit framework and available in the header <cite>SKRecognizer.h</cite>.
+Nuance may provide you with a different value for your unique recognition needs, in which case you will enter the raw <tt class="docutils literal"><span class="pre">NSString</span></tt>.</p>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">detection</span></tt> parameter determines the end-of-speech detection model and must be one of the <tt class="docutils literal"><span class="pre">SKEndOfSpeechDetection</span></tt> types.</p>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">language</span></tt> parameter defines the speech language as a string in the format of the ISO 639 language code, followed by an underscore &#8220;_&#8221;, followed by the ISO 3166-1 country code.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For example, the English language as spoken in the United States is <cite>en_US</cite>. An up-to-date list of supported languages for recognition is available on the FAQ at <a class="reference external" href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=faq">http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=faq</a>.</p>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">The delegate receives the recognition results or error messages, as described below.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="receiving-recognition-results">
+<h2>Receiving Recognition Results<a class="headerlink" href="#receiving-recognition-results" title="Permalink to this headline">¶</a></h2>
+<p>To retrieve the recognition results, implement the <tt class="docutils literal"><span class="pre">recognizer:didFinishWithResults:</span></tt> delegate method.</p>
+<div class="highlight-objective-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">recognizer:</span><span class="p">(</span><span class="n">SKRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">recognizer</span> <span class="nf">didFinishWithResults:</span><span class="p">(</span><span class="n">SKRecognition</span> <span class="o">*</span><span class="p">)</span><span class="nv">results</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">recognizer</span> <span class="n">autorelease</span><span class="p">];</span>
+    <span class="c1">// Perform some action on the results</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This delegate method will be called only on successful completion, and the results list will have zero or more results.
+The first result can always be retrieved with the <tt class="docutils literal"><span class="pre">firstResult</span></tt> method.
+Even in the absence of an error, there may be a suggestion, present in the recognition results object, from the speech server.
+This suggestion should be presented to the user.</p>
+</div>
+<div class="section" id="handling-errors">
+<h2>Handling Errors<a class="headerlink" href="#handling-errors" title="Permalink to this headline">¶</a></h2>
+<p>To be informed of any recognition errors, implement the <tt class="docutils literal"><span class="pre">recognizer:didFinishWithError:suggestion:</span></tt> delegate method.
+In the case of errors, only this method will be called; conversely, on success this method will not be called.
+In addition to the error, a suggestion, as described in the previous section, may or may not be present.</p>
+<div class="highlight-objective-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">recognizer:</span><span class="p">(</span><span class="n">SKRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">recognizer</span> <span class="nf">didFinishWithError:</span><span class="p">(</span><span class="n">NSError</span> <span class="o">*</span><span class="p">)</span><span class="nv">error</span> <span class="nf">suggestion:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">suggestion</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">recognizer</span> <span class="n">autorelease</span><span class="p">];</span>
+    <span class="c1">// Inform the user of the error and suggestion</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="managing-recording-state-changes">
+<h2>Managing Recording State Changes<a class="headerlink" href="#managing-recording-state-changes" title="Permalink to this headline">¶</a></h2>
+<p>Optionally, to be informed when the recognizer starts or stops recording audio, implement the <tt class="docutils literal"><span class="pre">recognizerDidBeginRecording:</span></tt> and <tt class="docutils literal"><span class="pre">recognizerDidFinishRecording:</span></tt> delegate methods.
+There may be a delay between initialization of the recognizer and the actual start of recording, so the <tt class="docutils literal"><span class="pre">recognizerDidBeginRecording:</span></tt> message can be used to signal to the user when the system is listening.</p>
+<div class="highlight-objective-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">recognizerDidBeginRecording:</span><span class="p">(</span><span class="n">SKRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">recognizer</span> <span class="p">{</span>
+    <span class="c1">// Update the UI to indicate the system is now recording</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">recognizerDidFinishRecording:</span></tt> message is sent before the speech server has finished receiving and processing the audio, and therefore before the result is available.</p>
+<div class="highlight-objective-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">recognizerDidFinishRecording:</span><span class="p">(</span><span class="n">SKRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">recognizer</span> <span class="p">{</span>
+    <span class="c1">// Update the UI to indicate that recording has stopped and the speech is still being processed</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This message is sent both with and without end-of-speech detection models in place.
+The message is sent regardless, whether recording was stopped due to calling the <tt class="docutils literal"><span class="pre">stopRecording</span></tt> method or due to detecting end-of-speech.</p>
+</div>
+<div class="section" id="setting-earcons-audio-cues">
+<h2>Setting Earcons (Audio Cues)<a class="headerlink" href="#setting-earcons-audio-cues" title="Permalink to this headline">¶</a></h2>
+<p>Optionally, to play audio cues before and after recording and after cancelling a recognition session, you can use earcons. You need to create an <tt class="docutils literal"><span class="pre">SKEarcon</span></tt> object and set it using the   <tt class="docutils literal"><span class="pre">setEarcon:forType:</span></tt> method of the Speech Kit framework. the following example shows how to set earcons in the recognizer sample app.</p>
+<div class="highlight-objective-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setEarcons</span> <span class="p">{</span>
+        <span class="c1">// Set earcons to play</span>
+        <span class="n">SKEarcon</span><span class="o">*</span> <span class="n">earconStart</span>   <span class="o">=</span> <span class="p">[</span><span class="n">SKEarcon</span> <span class="n">earconWithName</span><span class="o">:</span><span class="s">@&quot;earcon_listening.wav&quot;</span><span class="p">];</span>
+        <span class="n">SKEarcon</span><span class="o">*</span> <span class="n">earconStop</span>    <span class="o">=</span> <span class="p">[</span><span class="n">SKEarcon</span> <span class="n">earconWithName</span><span class="o">:</span><span class="s">@&quot;earcon_done_listening.wav&quot;</span><span class="p">];</span>
+        <span class="n">SKEarcon</span><span class="o">*</span> <span class="n">earconCancel</span>  <span class="o">=</span> <span class="p">[</span><span class="n">SKEarcon</span> <span class="n">earconWithName</span><span class="o">:</span><span class="s">@&quot;earcon_cancel.wav&quot;</span><span class="p">];</span>
+
+        <span class="p">[</span><span class="n">SpeechKit</span> <span class="n">setEarcon</span><span class="o">:</span><span class="n">earconStart</span> <span class="n">forType</span><span class="o">:</span><span class="n">SKStartRecordingEarconType</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">SpeechKit</span> <span class="n">setEarcon</span><span class="o">:</span><span class="n">earconStop</span> <span class="n">forType</span><span class="o">:</span><span class="n">SKStopRecordingEarconType</span><span class="p">];</span>
+        <span class="p">[</span><span class="n">SpeechKit</span> <span class="n">setEarcon</span><span class="o">:</span><span class="n">earconCancel</span> <span class="n">forType</span><span class="o">:</span><span class="n">SKCancelRecordingEarconType</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When the code block above is called, after you have set up the core Speech Kit framework using  the <tt class="docutils literal"><span class="pre">setupWithID:host:port:useSSL:delegate:</span></tt> method, it plays the <tt class="docutils literal"><span class="pre">earcon_listening.wav</span></tt> audio file before recording starts and plays <tt class="docutils literal"><span class="pre">earcon_done_listening.wav</span></tt> audio file when recording is completed. In the case of cancellation, the <tt class="docutils literal"><span class="pre">earcon_cancel.wav&quot;</span> <span class="pre">file</span> <span class="pre">is</span> <span class="pre">played</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">user.</span> <span class="pre">The</span> <span class="pre">``earconWithName:</span></tt> method works only with audio files that are supported by the device.</p>
+</div>
+<div class="section" id="power-level-feedback">
+<h2>Power Level Feedback<a class="headerlink" href="#power-level-feedback" title="Permalink to this headline">¶</a></h2>
+<p>In some scenarios, especially for longer dictations, it is useful to provide a user with visual feedback of the volume of their speech.
+The recognizer interface supports this feature by use of the property <tt class="docutils literal"><span class="pre">audioLevel</span></tt>, which returns the relative power level of the recorded audio in decibels.
+The range of this value is a <tt class="docutils literal"><span class="pre">float</span></tt> between 0.0 and -90.0 dB where 0.0 is the highest power level and -90.0 is the lowest level.
+This property should be accessed during recordings, specifically in the time between receiving the delegate messages <tt class="docutils literal"><span class="pre">recognizerDidBeginRecording:</span></tt> and <tt class="docutils literal"><span class="pre">recognizerDidFinishRecording:</span></tt>.
+Generally, you should use a timer method such as <tt class="docutils literal"><span class="pre">performSelector:withObject:afterDelay:</span></tt> to read the power level regularly.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="ServerConnection.html" title="Connecting to a Speech Server"
+             >previous</a> |
+          <a href="SpeakingText.html" title="Converting Text to Speech"
+             >next</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2010, Nuance Communications, Inc.  All Rights Reserved.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

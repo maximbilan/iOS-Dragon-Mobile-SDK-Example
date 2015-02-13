@@ -1,0 +1,15 @@
+Solutions to Common Problems
+============================
+This section addresses some frequently occurring issues and ways in which you can solve them.
+
+* During compilation, I receive ``error: 'INSERT_YOUR_APPLICATION_KEY_HERE' undeclared here`` or ``error: 'INSERT_YOUR_APPLICATION_ID_HERE' undeclared``.
+
+	You must insert your own application key ``SpeechKitApplicationKey[]`` in the source and send your own application ID as the ``ID`` parameter to ``setupWithID:host:port:useSSL:delegate:`` as described in the documentation for the sample applications.
+
+* During the linking phase, I receive ``"_SpeechKitApplicationKey", referenced from: ... symbol(s) not found``.
+
+	You must set your application key globally in your source as ``const unsigned char SpeechKitApplicationKey[] = { ... };`` as documented in the sample applications.
+
+* During the linking phase, I receive ``"_SCNetwork..." or "_Audio...", referenced from: ... symbol(s) not found``.
+
+	Make sure you have added the SystemConfiguration and AudioToolbox frameworks to your project.

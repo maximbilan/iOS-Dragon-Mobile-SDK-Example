@@ -1,0 +1,21 @@
+Speech Kit Framework Guide
+==========================
+The Speech Kit framework provides the classes necessary to perform network-based speech recognition and text-to-speech synthesis.
+This framework provides a simple, high-level speech service API that automatically performs all the tasks necessary for speech recognition or synthesis, including audio recording, audio playback, and network connection management.
+
+.. toctree::
+	:hidden:
+	
+	Basics
+	ServerConnection
+	RecognizingSpeech
+	SpeakingText
+
+Organization of This Document
+-----------------------------
+The following sections describe how to connect to a speech server and perform speech recognition or synthesis:
+
+	* ":doc:`Basics`" provides an overview of the Speech Kit framework.
+	* ":doc:`ServerConnection`" details the top-level server connection process.
+	* ":doc:`RecognizingSpeech`" describes how to use a network recognizer to transcribe speech.
+	* ":doc:`SpeakingText`" shows how to use the network-based vocalizer to convert text to speech.

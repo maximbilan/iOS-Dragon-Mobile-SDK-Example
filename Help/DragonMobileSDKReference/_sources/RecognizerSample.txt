@@ -1,0 +1,83 @@
+Sample Speech Recognition App
+=============================
+Included as part of the Dragon Mobile SDK is a sample Xcode project :file:`DragonMobileRecognizer`, which presents a basic, complete demo of the network-based speech recognizer.
+
+Before you use this application, you must replace the placeholder application ID and key with values provided by Nuance for your developer account.
+You can obtain your ID and key from the Nuance Mobile Developer portal located at http://dragonmobile.nuancemobiledeveloper.com/.
+
+	1. Open the file :file:`Classes/DMRecognizerViewController`.
+	   Replace the ``SpeechKitApplicationKey[]`` value with your key.
+
+	2. In the setupWithID:host:port:useSSL:delegate:`` method, replace the ``ID`` parameter with your ID.
+
+	3. You should also verify that the host and port provided to that method match the host and port provided in the portal.
+
+	4. You can now run the application: connect your device and select :guilabel:`Build and Run`.
+
+Main Recognizer View
+--------------------
+When the sample application launches, the main recognition view is displayed.
+
+.. figure:: images/record.png
+
+	Main Recognition View
+
+This view has four sections:
+
+	* Voice Interface contains a multi-purpose button for controlling the recognition process and has a result field.
+	
+	* Recognition Type allows for the selection between the two default recognition models: search and dictation.
+	
+	* Audio Level provides a basic VU meter display.
+	
+	* Alternatives displays the complete list of recognition results.
+
+The control button is initially labeled Record.
+The Search choice is selected, enabling the search model, and can be switched by selecting Dictation.
+Touching the record button starts the recognition process.
+The control button label changes to Recording and speech recording starts.
+The VU meter provides an animated view of the audio power level.
+After the end of speech is detected or the control button is pressed, recording stops, and the speech server continues processing the recorded audio.
+The button indicates this stage with the label Processing.
+When processing is complete, the primary result is displayed in the top text field, and all the results are displayed in a list in the bottom text field.
+
+.. figure:: images/results.png
+
+	Recognition Results
+
+The Search and Dictation options refer the to the recognition model applied to the speech at the server.
+These models correspond to the models used by the Dragon apps available on the App Store.
+The search model is used by Dragon Search http://itunes.apple.com/us/app/dragon-search/id341452950?mt=8.
+The dictation model is used by Dragon Dictation http://itunes.apple.com/us/app/dragon-dictation/id341446764?mt=8
+
+Try experimenting with various utterances using both the Search and Dictation options.
+As an example, try speaking addresses and notice how the dictation model performs poorly without context.
+However, the search model peforms well, making it a good choice for search and navigation applications.
+With the context of normal speech, the dictation model performs as well as the search model.
+
+.. figure:: images/street.png
+
+	Recognition Models and Context
+
+Recognition Logic
+-----------------
+This sample application was designed to be a simple introduction to using the network-based recognition APIs in the Speech Kit framework.
+To maintain simplicity, the application was designed using Interface Builder, and all of the recognition logic is contained within the ``DMRecognizerViewController`` implementation.
+
+On execution, when the application finishes loading the main view from the nib file, the ``viewDidLoad`` method is called.
+This method is used to configure the Speech Kit framework on application launch by calling the ``setupWithID:host:port:useSSL:delegate`` method.
+Note that the key has already been defined as a global value.
+
+When the "Record" button is pressed, a new ``SKRecognizer`` is created with the ``initWithType:detection:language:delegate:`` method.
+The audio system may take some time to configure, especially with the first recognition, and so the button label is not updated at this point. If an earcon with ``SKStartRecordingEarconType`` type is set, the earcon audio is played before recording is started. The button is updated to reflect the recording state when the ``recognizerDidBeginRecording:`` delegate method is called.
+
+When the recording finishes, as the result of either a button press or end-of-speech detection, the delegate method ``recognizerDidFinishRecording:`` is called, and the button is updated.
+If an earcon with ``SKStopRecordingEarconType`` type is set, the earcon audio is played after recording is stopped.
+
+On a successful completion, the method ``recognizer:didFinishWithResults:`` returns with an ``SKRecognition`` object that contains the list of recognition results.
+The top result, retrieved with the ``firstResult`` method, is listed in text box.
+The complete list of results, accessed through the ``results`` property, is displayed in the large text field.
+If a suggestion was received, it is read from the SKRecoginition object, and an alert is displayed.
+
+If an error occurs, the method ``recognizer:didFinishWithError:suggestion:`` is called, and both the error and suggestion methods are presented to the user as alerts.
+When the recognition is cancelled by the user, if an earcon with ``SKCancelRecordingEarconType`` type is set, the earcon audio is played.

@@ -1,0 +1,89 @@
+Speech Kit Basics
+=================
+The Speech Kit framework allows you to add voice recognition and text-to-speech services to your applications easily and quickly.  
+This framework provides access to speech processing components hosted on a server through a clean asynchronous network service API, minimizing overhead and resource consumption.
+The Speech Kit framework lets you provide fast voice search, dictation, and high-quality, multilingual text-to-speech functionality in your application.
+
+Speech Kit Architecture
+-----------------------
+The Speech Kit framework is a full-featured, high-level framework that automatically manages all the required low-level services.
+
+.. figure:: speech_kit_architecture.png
+
+	Speech Kit Architecture
+
+At the application level, there are two main components available to the developer: the recognizer and the text-to-speech synthesizer.
+
+In the framework there are several coordinated processes:
+
+	* The framework fully manages the audio system for recording and playback.
+
+	* The networking component manages the connection to the server and, at the start of a new request, automatically re-establishes connections that have timed-out.
+
+	* The end-of-speech detector determines when the user has stopped speaking and automatically stops recording.
+
+	* The encoding component compresses and decompresses the streaming audio to reduce bandwidth requirements and decrease latency.
+
+The server system is responsible for the majority of the work in the speech processing cycle.  
+The complete recognition or synthesis procedure is performed on the server, consuming or producing the streaming audio.  
+In addition, the server manages authentication as configured through the developer portal.
+
+Using Speech Kit
+----------------
+You can use the Speech Kit framework in the same way that you use any of the standard iPhone frameworks such as Foundation or UIKit. 
+The only difference is that the Speech Kit framework is a static framework and is entirely contained in your compiled application. 
+This does not affect you as a developer except that you must be certain that you and any other developers working on your application all use the same release of Speech Kit. 
+You can easily ensure this by including the entire framework in your application and your source control.
+
+The Speech Kit framework depends on some core iPhone OS frameworks that you must include as dependencies in your application so that they are available at run time. 
+In addition to Foundation, you must add the System Configuration and Audio Toolbox frameworks to your Xcode project, as follows:
+
+	1. Start by selecting the Frameworks group within your project.
+
+	2. Then right-click or command-click Frameworks and, from the menu, select :menuselection:`Add --> Existing frameworks...`.
+
+	3. Finally, select the required frameworks and click :guilabel:`Add`.
+	   The frameworks appear in the Frameworks folder (see figure below).
+
+To start using the SpeechKit framework, add it to your new or existing project, as follows:
+
+	1. Open your project and select the group where you want the Speech Kit framework to be stored, for example:file:`Frameworks`.
+
+	2. From the menu select :menuselection:`Project --> Add to Project....`
+
+	3. Then find the framework :file:`SpeechKit.framework` where you extracted the Dragon Mobile SDK and select :guilabel:`Add`.
+
+	4. To ensure that the Speech Kit framework is stored in your project and is not referencing the location where you found it, select :guilabel:`Copy items...` and then select :guilabel:`Add`.
+
+	5. You should now see the Speech Kit framework in your project, which you can expand to view the public headers.
+
+.. figure:: required_frameworks.png
+
+	Frameworks Required for Speech Kit
+
+The Speech Kit framework provides one top-level header, which provides access to the complete API including classes and constants. 
+You should import the Speech Kit header in all source files where you intend to use Speech Kit services:
+
+.. code-block:: objective-c
+
+        #import <SpeechKit/SpeechKit.h>
+
+You are now ready to start using recognition and text-to-speech services.
+
+Speech Kit Errors
+-----------------
+While using the Speech Kit framework, you will occasionally encounter errors. 
+In this framework there is a custom ``NSError`` domain, ``SKSpeechErrorDomain``, which includes special error codes and messages to support your development and use. 
+In all cases, errors have a valid localized description set, which may prove useful in development and, in some cases, may be presented to the user.
+
+There are effectively two types of errors that can be expected in this framework.
+
+	* The first type are service connection errors and include the ``SKServerConnectionError`` and ``SKServerRetryError`` codes.
+	  These errors indicate that there is some kind of failure in the connection with the speech server.
+	  The failure may be temporary, and it can be solved by retrying the query.
+	  The error may be the result of an authorization failure or some other network problem.
+
+	* The second type are speech processing errors and include the ``SKRecognizerError`` and ``SKVocalizerError`` codes.
+	  These errors indicate a problem with the speech request, ranging from a text format issue to an audio detection failure.
+
+It is essential to always monitor for errors, as signal conditions may generate errors even in a correctly implemented application. The application's user interface needs to respond appropriately and elegantly to ensure a robust user experience.
