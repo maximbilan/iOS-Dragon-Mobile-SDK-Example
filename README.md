@@ -37,7 +37,7 @@ For stop the <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL
 [OALSimpleAudio purgeSharedInstance];
 </pre>
 
-If you play some audios during the recognition, you should no forgot stop the playing audio in the didFinishWithResults and didFinishWithError methods, for example for AVAudioPlayer:
+If you play some audios during the recognition, you should no forgot stop the playing audio in the <i>didFinishWithResults</i> and <i>didFinishWithError</i> methods, for example for <i>AVAudioPlayer</i>:
 
 <pre>
 - (void)recognizer:(SKRecognizer *)recognizer didFinishWithResults:(SKRecognition *)results
