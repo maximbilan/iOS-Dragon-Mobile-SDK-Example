@@ -1,6 +1,6 @@
 # Nuance Dragon Mobile SDK and ObjectAL
 
-In <i>iOS 8</i> I’m faced with a problem with working <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance Dragon Mobile SDK</a> and ObjectAL together. When I set up <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a>, and if I already have used the ObjectAL before, I have got a error in the log:
+In <i>iOS 8</i> I’m faced with a problem with working <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance Dragon Mobile SDK</a> and <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL</a> together. When I set up <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a>, and if I already have used the <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL</a> before, I have got a error in the log:
 
 <pre>
 ERROR:     [0x3c1779dc] AVAudioSession.mm:646: -[AVAudioSession setActive:withOptions:error:]: 
@@ -10,7 +10,7 @@ to deactivating the audio session.
 
 And I can’t play or record audio, because session was deactivated in the application.
 
-What does it mean? It means that <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> tries to set up active session, and you have some sessions in the ObjectAL.
+What does it mean? It means that <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> tries to set up active session, and you have some sessions in the <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL</a>.
 
 <i>iOS 8</i> provides some information about this. In <i>AVAudioSession</i> header:
 
@@ -28,9 +28,9 @@ And unfortunately <a href="http://dragonmobile.nuancemobiledeveloper.com/public/
 
 You can found some post in the official forum of this SDK. And there’re no any solutions. And the Nuance team did not particularly hurry to solve this issue ☹
 
-But, it’s not all bad. Because we have ObjectAL with opened source code☺ And I can suggest the solution, maybe it’s not really good solution, but it works. Before using the <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> you remove the ObjectAL from memory, wait for deallocating framework, and will set up the <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> after that. During the recognition you should not use ObjectAL, because it’s will deactivate the audio session, but you can use for example AVAudioPlayer.
+But, it’s not all bad. Because we have <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL</a> with opened source code☺ And I can suggest the solution, maybe it’s not really good solution, but it works. Before using the <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> you remove the <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL</a> from memory, wait for deallocating framework, and will set up the <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> after that. During the recognition you should not use <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL</a>, because it’s will deactivate the audio session, but you can use for example AVAudioPlayer.
 
-For stop the ObjectAL you should call the next:
+For stop the <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL</a> you should call the next:
 
 <pre>
 [[OALSimpleAudio sharedInstance] stopEverything];
@@ -60,4 +60,4 @@ If you play some audios during the recognition, you should no forgot stop the pl
 }
 </pre>
 
-You can check and try this in my github. It’s modified sample from <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a>.
+You can check and try this in current repository. It’s modified sample from <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a>.
