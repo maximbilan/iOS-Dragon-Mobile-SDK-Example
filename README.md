@@ -15,9 +15,12 @@ What does it mean? It means that Nuance SDK tries to set up active session, and 
 <i>iOS 8</i> provides some information about this. In <i>AVAudioSession</i> header:
 
 <pre>
-/* Set the session active or inactive. Note that activating an audio session is a synchronous (blocking) operation.
-Therefore, we recommend that applications not activate their session from a thread where a long blocking operation will be problematic.
-Note that this method will throw an exception in apps linked on or after iOS 8 if the session is set inactive while it has running or paused I/O (e.g. audio queues, players, recorders, converters, remote I/Os, etc.).
+/* Set the session active or inactive. Note that activating an audio session is a synchronous
+(blocking) operation. Therefore, we recommend that applications not activate their session from
+a thread where a long blocking operation will be problematic.
+Note that this method will throw an exception in apps linked on or after iOS 8 if the session is
+set inactive while it has running or paused I/O (e.g. audio queues, players, recorders,
+converters, remote I/Os, etc.).
 */
 </pre>
 
