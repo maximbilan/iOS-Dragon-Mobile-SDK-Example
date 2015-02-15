@@ -1,6 +1,6 @@
 # Nuance Dragon Mobile SDK and ObjectAL
 
-In iOS 8 I’m faced with a problem with working Nuance Dragon Mobile SDK and ObjectAL together. When I set up Nuance SDK, and if I already have used the ObjectAL before, I have got a error in the log:
+In <i>iOS 8</i> I’m faced with a problem with working Nuance Dragon Mobile SDK and ObjectAL together. When I set up Nuance SDK, and if I already have used the ObjectAL before, I have got a error in the log:
 
 <pre>
 ERROR:     [0x3c1779dc] AVAudioSession.mm:646: -[AVAudioSession setActive:withOptions:error:]: 
@@ -12,7 +12,7 @@ And I can’t play or record audio, because session was deactivated in the appli
 
 What does it mean? It means that Nuance SDK tries to set up active session, and you have some sessions in the ObjectAL.
 
-iOS 8 provides some information about this. In AVAudioSession header:
+<i>iOS 8</i> provides some information about this. In <i>AVAudioSession</i> header:
 
 <pre>
 /* Set the session active or inactive. Note that activating an audio session is a synchronous (blocking) operation.
@@ -47,7 +47,7 @@ If you play some audios during the recognition, you should no forgot stop the pl
 }
 
 - (void)recognizer:(SKRecognizer *)recognizer didFinishWithError:(NSError *)error
--       suggestion:(NSString *)suggestion
+        suggestion:(NSString *)suggestion
 {
     if (audioPlayer) {
         [audioPlayer stop];
