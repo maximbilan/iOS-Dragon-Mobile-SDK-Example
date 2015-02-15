@@ -28,7 +28,7 @@ And unfortunately <a href="http://dragonmobile.nuancemobiledeveloper.com/public/
 
 You can found some post in the official forum of this SDK. And there’re no any solutions. And the Nuance team did not particularly hurry to solve this issue ☹
 
-But, it’s not all bad. Because we have ObjectAL with opened source code☺And I can suggest the solution, maybe it’s not really good solution, but it works. Before using the Nuance SDK you remove the ObjectAL from memory, wait for deallocating framework, and will set up the Nuance SDK after that. During the recognition you should not use ObjectAL, because it’s will deactivate the audio session, but you can use for example AVAudioPlayer.
+But, it’s not all bad. Because we have ObjectAL with opened source code☺ And I can suggest the solution, maybe it’s not really good solution, but it works. Before using the <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> you remove the ObjectAL from memory, wait for deallocating framework, and will set up the <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> after that. During the recognition you should not use ObjectAL, because it’s will deactivate the audio session, but you can use for example AVAudioPlayer.
 
 For stop the ObjectAL you should call the next:
 
