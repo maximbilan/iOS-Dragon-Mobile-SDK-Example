@@ -19,7 +19,6 @@
 		37A7448D11BD768700D02E62 /* DMRecognizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A7448B11BD768700D02E62 /* DMRecognizerViewController.m */; };
 		37A7451F11BD835300D02E62 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A7451E11BD835300D02E62 /* AppIcon.png */; };
 		3D65EACC1306188C997809ED /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B72837287A78DD318DA3B0E /* libPods.a */; };
-		6D0631371A90B5E2006626A2 /* WaitSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0631361A90B5E2006626A2 /* WaitSpinner.m */; };
 		923526BD139EB05E004D17F4 /* MainWindow_Debug.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923526BC139EB05E004D17F4 /* MainWindow_Debug.xib */; };
 		92527E5A131D5F30005E9741 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92527E59131D5F30005E9741 /* Security.framework */; };
 		92527F1D131D61AD005E9741 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92527F1C131D61AD005E9741 /* CFNetwork.framework */; };
@@ -48,8 +47,6 @@
 		37A7448F11BD76A800D02E62 /* DMRecognizer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DMRecognizer-Info.plist"; sourceTree = "<group>"; };
 		37A7451E11BD835300D02E62 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		3B72837287A78DD318DA3B0E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D0631351A90B5E2006626A2 /* WaitSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitSpinner.h; sourceTree = "<group>"; };
-		6D0631361A90B5E2006626A2 /* WaitSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitSpinner.m; sourceTree = "<group>"; };
 		923526BC139EB05E004D17F4 /* MainWindow_Debug.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_Debug.xib; sourceTree = "<group>"; };
 		92527E59131D5F30005E9741 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		92527F1C131D61AD005E9741 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -84,7 +81,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6D0631341A90B5E2006626A2 /* WaitSpinner */,
 				37A7448811BD768700D02E62 /* DMRecognizerAppDelegate.h */,
 				37A7448911BD768700D02E62 /* DMRecognizerAppDelegate.m */,
 				37A7448A11BD768700D02E62 /* DMRecognizerViewController.h */,
@@ -161,15 +157,6 @@
 				3B72837287A78DD318DA3B0E /* libPods.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6D0631341A90B5E2006626A2 /* WaitSpinner */ = {
-			isa = PBXGroup;
-			children = (
-				6D0631351A90B5E2006626A2 /* WaitSpinner.h */,
-				6D0631361A90B5E2006626A2 /* WaitSpinner.m */,
-			);
-			path = WaitSpinner;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,7 +267,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D0631371A90B5E2006626A2 /* WaitSpinner.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				37A7448C11BD768700D02E62 /* DMRecognizerAppDelegate.m in Sources */,
 				37A7448D11BD768700D02E62 /* DMRecognizerViewController.m in Sources */,
