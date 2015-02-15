@@ -1,6 +1,6 @@
 # Nuance Dragon Mobile SDK and ObjectAL
 
-In <i>iOS 8</i> I’m faced with a problem with working <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance Dragon Mobile SDK</a> and ObjectAL together. When I set up Nuance SDK, and if I already have used the ObjectAL before, I have got a error in the log:
+In <i>iOS 8</i> I’m faced with a problem with working <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance Dragon Mobile SDK</a> and ObjectAL together. When I set up <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a>, and if I already have used the ObjectAL before, I have got a error in the log:
 
 <pre>
 ERROR:     [0x3c1779dc] AVAudioSession.mm:646: -[AVAudioSession setActive:withOptions:error:]: 
@@ -10,7 +10,7 @@ to deactivating the audio session.
 
 And I can’t play or record audio, because session was deactivated in the application.
 
-What does it mean? It means that Nuance SDK tries to set up active session, and you have some sessions in the ObjectAL.
+What does it mean? It means that <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> tries to set up active session, and you have some sessions in the ObjectAL.
 
 <i>iOS 8</i> provides some information about this. In <i>AVAudioSession</i> header:
 
@@ -24,7 +24,7 @@ converters, remote I/Os, etc.).
 */
 </pre>
 
-And unfortunately Nuance SDK is private API. And we don’t have access to the source code ☹
+And unfortunately <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> is private API. And we don’t have access to the source code ☹
 
 You can found some post in the official forum of this SDK. And there’re no any solutions. And the Nuance team did not particularly hurry to solve this issue ☹
 
