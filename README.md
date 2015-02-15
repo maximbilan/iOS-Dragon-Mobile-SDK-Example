@@ -4,8 +4,8 @@ In iOS 8 I’m faced with a problem with working Nuance Dragon Mobile SDK and Ob
 
 <pre>
 ERROR:     [0x3c1779dc] AVAudioSession.mm:646: -[AVAudioSession setActive:withOptions:error:]: 
-Deactivating an audio session that has running I/O. All I/O should be stopped or paused prior to deactivating
-the audio session.
+Deactivating an audio session that has running I/O. All I/O should be stopped or paused prior
+to deactivating the audio session.
 </pre>
 
 And I can’t play or record audio, because session was deactivated in the application.
@@ -46,7 +46,8 @@ If you play some audios during the recognition, you should no forgot stop the pl
     ...
 }
 
-- (void)recognizer:(SKRecognizer *)recognizer didFinishWithError:(NSError *)error suggestion:(NSString *)suggestion
+- (void)recognizer:(SKRecognizer *)recognizer didFinishWithError:(NSError *)error
+-       suggestion:(NSString *)suggestion
 {
     if (audioPlayer) {
         [audioPlayer stop];
