@@ -1,6 +1,6 @@
 # Nuance Dragon Mobile SDK and ObjectAL
 
-In <i>iOS 8</i> I’m faced with a problem with working Nuance Dragon Mobile SDK and ObjectAL together. When I set up Nuance SDK, and if I already have used the ObjectAL before, I have got a error in the log:
+In <i>iOS 8</i> I’m faced with a problem with working <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance Dragon Mobile SDK</a> and ObjectAL together. When I set up Nuance SDK, and if I already have used the ObjectAL before, I have got a error in the log:
 
 <pre>
 ERROR:     [0x3c1779dc] AVAudioSession.mm:646: -[AVAudioSession setActive:withOptions:error:]: 
