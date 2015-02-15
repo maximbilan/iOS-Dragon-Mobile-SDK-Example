@@ -50,6 +50,7 @@ const unsigned char SpeechKitApplicationKey[] = {0xf7, 0x6a, 0x3f, 0x9c, 0x99, 0
 @interface DMRecognizerViewController ()
 {
 	WaitSpinner *waitSpinner;
+	AVAudioPlayer *audioPlayer;
 }
 
 @end
@@ -80,7 +81,11 @@ const unsigned char SpeechKitApplicationKey[] = {0xf7, 0x6a, 0x3f, 0x9c, 0x99, 0
 	
 	waitSpinner = [[WaitSpinner alloc] init];
 	
-    /**    
+	NSString *path = [NSString stringWithFormat:@"%@/earcon_listening.wav", [[NSBundle mainBundle] resourcePath]];
+	NSURL *soundUrl = [NSURL fileURLWithPath:path];
+	audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
+	
+    /**
      * The login parameters should be specified in the following manner:
      *
      *  [SpeechKit setupWithID:@"ExampleSpeechKitSampleID"
@@ -91,9 +96,9 @@ const unsigned char SpeechKitApplicationKey[] = {0xf7, 0x6a, 0x3f, 0x9c, 0x99, 0
      *
      * Please note that all the specified values are non-functional
      * and are provided solely as an illustrative example.
-     */ 
-
-	[[OALSimpleAudio sharedInstance] stopAllEffects];
+     */
+	
+	[[OALSimpleAudio sharedInstance] stopEverything];
 	[OALSimpleAudio purgeSharedInstance];
 	
 	[waitSpinner showInView:self.view];
