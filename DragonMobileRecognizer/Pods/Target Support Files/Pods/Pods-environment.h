@@ -12,3 +12,9 @@
 #define COCOAPODS_VERSION_MINOR_ObjectAL_for_iPhone 4
 #define COCOAPODS_VERSION_PATCH_ObjectAL_for_iPhone 0
 
+// WaitSpinner
+#define COCOAPODS_POD_AVAILABLE_WaitSpinner
+#define COCOAPODS_VERSION_MAJOR_WaitSpinner 0
+#define COCOAPODS_VERSION_MINOR_WaitSpinner 1
+#define COCOAPODS_VERSION_PATCH_WaitSpinner 1
+

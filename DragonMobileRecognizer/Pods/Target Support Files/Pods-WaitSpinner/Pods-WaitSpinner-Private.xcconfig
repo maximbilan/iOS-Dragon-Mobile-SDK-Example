@@ -1,0 +1,5 @@
+#include "Pods-WaitSpinner.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/WaitSpinner" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ObjectAL-for-iPhone" "${PODS_ROOT}/Headers/Public/ObjectAL-for-iPhone/ObjectAL" "${PODS_ROOT}/Headers/Public/ObjectAL-for-iPhone/ObjectAL/Actions" "${PODS_ROOT}/Headers/Public/ObjectAL-for-iPhone/ObjectAL/AudioTrack" "${PODS_ROOT}/Headers/Public/ObjectAL-for-iPhone/ObjectAL/OpenAL" "${PODS_ROOT}/Headers/Public/ObjectAL-for-iPhone/ObjectAL/Session" "${PODS_ROOT}/Headers/Public/ObjectAL-for-iPhone/ObjectAL/Support" "${PODS_ROOT}/Headers/Public/WaitSpinner"
+OTHER_LDFLAGS = -ObjC
+PODS_ROOT = ${SRCROOT}

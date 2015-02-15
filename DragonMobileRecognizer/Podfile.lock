@@ -1,10 +1,13 @@
 PODS:
   - ObjectAL-for-iPhone (2.4)
+  - WaitSpinner (0.1.1)
 
 DEPENDENCIES:
   - ObjectAL-for-iPhone
+  - WaitSpinner
 
 SPEC CHECKSUMS:
   ObjectAL-for-iPhone: 305e0d4548ed5897eab08a6e1cc1f6589213cc28
+  WaitSpinner: e362ac153248d01699a67faa25a6e6b817ce8f88
 
 COCOAPODS: 0.35.0
