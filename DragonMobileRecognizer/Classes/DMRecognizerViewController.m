@@ -303,6 +303,10 @@ const unsigned char SpeechKitApplicationKey[] = {0xf7, 0x6a, 0x3f, 0x9c, 0x99, 0
 
 - (void)recognizer:(SKRecognizer *)recognizer didFinishWithResults:(SKRecognition *)results
 {
+	if (audioPlayer) {
+		[audioPlayer stop];
+	}
+	
     NSLog(@"Got results.");
     NSLog(@"Session id [%@].", [SpeechKit sessionID]); // for debugging purpose: printing out the speechkit session id 
 
@@ -334,6 +338,10 @@ const unsigned char SpeechKitApplicationKey[] = {0xf7, 0x6a, 0x3f, 0x9c, 0x99, 0
 
 - (void)recognizer:(SKRecognizer *)recognizer didFinishWithError:(NSError *)error suggestion:(NSString *)suggestion
 {
+	if (audioPlayer) {
+		[audioPlayer stop];
+	}
+	
     NSLog(@"Got error.");
     NSLog(@"Session id [%@].", [SpeechKit sessionID]); // for debugging purpose: printing out the speechkit session id 
     
@@ -381,6 +389,13 @@ const unsigned char SpeechKitApplicationKey[] = {0xf7, 0x6a, 0x3f, 0x9c, 0x99, 0
         [portBox resignFirstResponder];
     }
     return YES;
+}
+
+- (IBAction)recognitionTypeValueChanged:(UISegmentedControl *)sender
+{
+	if (audioPlayer) {
+		[audioPlayer play];
+	}
 }
 
 @end
