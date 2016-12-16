@@ -60,4 +60,5 @@ If you play some audios during the recognition, you should no forgot stop the pl
 }
 </pre>
 
-You can check and try this in current repository. It’s modified sample from <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a>.
+You can check and try this in current repository.<br>
+It’s modified sample from <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a>.
