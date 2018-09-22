@@ -8,9 +8,9 @@ Deactivating an audio session that has running I/O. All I/O should be stopped or
 to deactivating the audio session.
 </pre>
 
-And I can’t play or record audio, because session was deactivated in the application.
+And I can’t play or record an audio, because session was deactivated in the application.
 
-What does it mean? It means that <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> tries to set up active session, and you have some sessions in the <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL</a>.
+What does it mean? It means that <a href="http://dragonmobile.nuancemobiledeveloper.com/public/index.php?task=prodDev#download">Nuance SDK</a> tries to set up the active session, and you have some sessions in the <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL</a>.
 
 <i>iOS 8</i> provides some information about this. In <i>AVAudioSession</i> header:
 
@@ -37,7 +37,7 @@ For stop the <a href="https://github.com/kstenerud/ObjectAL-for-iPhone">ObjectAL
 [OALSimpleAudio purgeSharedInstance];
 </pre>
 
-If you play some audios during the recognition, you should no forgot stop the playing audio in the <i>didFinishWithResults</i> and <i>didFinishWithError</i> methods, for example for <i>AVAudioPlayer</i>:
+If you play some audios during the recognition, you should no forgot to stop the playing audio in the <i>didFinishWithResults</i> and <i>didFinishWithError</i> methods, for example for <i>AVAudioPlayer</i>:
 
 <pre>
 - (void)recognizer:(SKRecognizer *)recognizer didFinishWithResults:(SKRecognition *)results
